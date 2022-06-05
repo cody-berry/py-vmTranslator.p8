@@ -66,6 +66,7 @@ class Parser:
 
     def arg1(self) -> str:
         command = self.lineContent.split(' ')
+        command[len(command) - 1] = command[len(command) - 1][0:(len(command) - 3)]
         if len(command) == 1:
             return self.lineContent
         else:
@@ -73,6 +74,7 @@ class Parser:
 
     def arg2(self) -> int:
         command = self.lineContent.split()
+        command[len(command) - 1] = command[len(command) - 1][0:(len(command) - 3)]
         return int(command[2])
 
 

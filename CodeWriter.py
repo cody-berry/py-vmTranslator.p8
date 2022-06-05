@@ -3,6 +3,7 @@ class CodeWriter:
     def __init__(self, file_name):
         self.file = open(file_name, 'w')
         self.counter = -1
+        self.filename = file_name
 
     # write an arithmetic command like add or subtract
     def writeArithmetic(self, command):
@@ -216,7 +217,7 @@ class CodeWriter:
     def _writePushStatic(self, i):
         c = [
             f"// push static {i}",
-            f"@static.{i}",  # access static i
+            f"@{self.filename}.{i}",  # access static i
             "D=M",  # D = RAM[variable at i]
             "@SP",
             "M=M+1",  # SP++
@@ -235,7 +236,7 @@ class CodeWriter:
             "@SP",
             "AM=M-1",  # SP--, A=SP
             "D=M",  # D=RAM[SP]
-            f"@static.{i}",
+            f"@{self.filename}.{i}",
             "M=D"  # RAM[variable at i] = RAM[SP]
         ]
         for line in c:
@@ -463,6 +464,31 @@ class CodeWriter:
             "@ad",
             "A=M",  # A = RAM[ARG] + i
             "M=D",  # RAM[RAM[ARG] + i] = RAM[SP]
+        ]
+        for line in c:
+            print(line)
+            self.file.write(line + "\n")
+
+    # write label label
+    def writeLabel(self, label):
+        c = [
+            f"// label {label}",
+            f"({label})"
+        ]
+        print(c)
+        for line in c:
+            print(line)
+            self.file.write(line + "\n")
+
+    # write if-goto label
+    def writeIf(self, label):
+        c = [
+            f"// if-goto {label}",
+            "@SP",
+            "AM=M-1",
+            "D=M",
+            f"@{label}",
+            "0;JMP"
         ]
         for line in c:
             print(line)

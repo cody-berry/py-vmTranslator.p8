@@ -2,8 +2,8 @@ from CodeWriter import *
 from Parser import *
 
 
-parser = Parser('ProgramFlow/BasicLoop/BasicLoop.vm')
-code_writer = CodeWriter('ProgramFlow/BasicLoop/BasicLoop.asm')
+parser = Parser('ProgramFlow/FibonacciSeries/FibonacciSeries.vm')
+code_writer = CodeWriter('ProgramFlow/FibonacciSeries/FibonacciSeries.asm')
 
 
 while parser.hasMoreLines():

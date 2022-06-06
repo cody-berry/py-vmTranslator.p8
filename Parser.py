@@ -37,7 +37,7 @@ class Parser:
     def advance(self):
         self.lineNumber += 1
         print(self.lineNumber)
-        self.lineContent = self.file[self.lineNumber]
+        self.lineContent = self.file[self.lineNumber].strip()
         print(self.lineContent)
 
     def commandType(self) -> Command:
@@ -45,7 +45,7 @@ class Parser:
 
         print(command)
 
-        if command[0] in ['add\n', 'sub\n', 'neg\n', 'or\n', 'and\n', 'not\n', 'lt\n', 'eq\n', 'gt\n']:
+        if command[0] in ['add', 'sub', 'neg', 'or', 'and', 'not', 'lt', 'eq', 'gt']:
             return Command.C_ARITHMETIC
         if command[0] == 'push':
             return Command.C_PUSH
@@ -59,22 +59,20 @@ class Parser:
             return Command.C_IF
         if command[0] == 'function':
             return Command.C_FUNCTION
-        if command[0] == 'return\n':
+        if command[0] == 'return':
             return Command.C_RETURN
         if command[0] == 'call':
             return Command.C_CALL
 
     def arg1(self) -> str:
         command = self.lineContent.split(' ')
-        command[len(command) - 1] = command[len(command) - 1][0:(len(command) - 3)]
         if len(command) == 1:
             return self.lineContent
         else:
             return command[1]
 
     def arg2(self) -> int:
-        command = self.lineContent.split()
-        command[len(command) - 1] = command[len(command) - 1][0:(len(command) - 3)]
+        command = self.lineContent.split(' ')
         return int(command[2])
 
 

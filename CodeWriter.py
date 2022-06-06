@@ -7,25 +7,25 @@ class CodeWriter:
 
     # write an arithmetic command like add or subtract
     def writeArithmetic(self, command):
-        if command == 'add\n':
+        if command == 'add':
             self._writeAdd()
-        if command == 'sub\n':
+        if command == 'sub':
             self._writeSub()
-        if command == 'neg\n':
+        if command == 'neg':
             self._writeNeg()
-        if command == 'not\n':
+        if command == 'not':
             self._writeNot()
-        if command == 'and\n':
+        if command == 'and':
             self._writeAnd()
-        if command == 'or\n':
+        if command == 'or':
             self._writeOr()
-        if len(command) == 3 and command != 'or\n':
+        if len(command) == 2 and command != 'or':
             operator = ' '
-            if command == 'lt\n':
+            if command == 'lt':
                 operator = 0
-            if command == 'eq\n':
+            if command == 'eq':
                 operator = 1
-            if command == 'gt\n':
+            if command == 'gt':
                 operator = 2
             self._writeEqGtLt(operator)
 
@@ -488,7 +488,7 @@ class CodeWriter:
             "AM=M-1",
             "D=M",
             f"@{label}",
-            "0;JMP"
+            "D;JNE"
         ]
         for line in c:
             print(line)

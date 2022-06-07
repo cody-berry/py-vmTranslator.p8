@@ -1,4 +1,3 @@
-
 class CodeWriter:
     def __init__(self, file_name):
         self.file = open(file_name, 'w')
@@ -40,7 +39,7 @@ class CodeWriter:
             "A=A-1",
             "D=D+M",
             "M=D"
-            ]
+        ]
 
         for line in c:
             print(line)
@@ -57,7 +56,7 @@ class CodeWriter:
             "A=A-1",
             "D=M-D",
             "M=D"
-            ]
+        ]
 
         for line in c:
             print(line)
@@ -489,6 +488,77 @@ class CodeWriter:
             "D=M",
             f"@{label}",
             "D;JNE"
+        ]
+        for line in c:
+            print(line)
+            self.file.write(line + "\n")
+
+    # write goto label
+    def writeGoto(self, label):
+        c = [
+            f"// goto {label}",
+            f"@{label}",
+            "0;JMP"
+        ]
+        for line in c:
+            print(line)
+            self.file.write(line + "\n")
+
+    # write function functionName numVars
+    def writeFunction(self, function_name, num_vars):
+        c = [
+            f"// function {function_name} {num_vars}",
+            f"({function_name})"
+        ]
+        for i in range(0, num_vars):
+            c.append('@SP')
+            c.append('AM=M+1')
+            c.append('M=0')
+        for line in c:
+            print(line)
+            self.file.write(line + "\n")
+
+    # write function functionName numVars
+    def writeReturn(self):
+        c = [
+            "@LCL",
+            "D=M",
+            "@endFrame",
+            "M=D",
+            "@SP",
+            "AM=M-1",
+            "D=M",
+            "@ARG",
+            "A=M",
+            "M=D",
+            "@ARG",
+            "D=M+1",
+            "@SP",
+            "M=D",
+            "@endFrame",
+            "AM=M-1",
+            "D=M",
+            "@THAT",
+            "M=D",
+            "@endFrame",
+            "AM=M-1",
+            "D=M",
+            "@THIS",
+            "M=D",
+            "@endFrame",
+            "AM=M-1",
+            "D=M",
+            "@ARG",
+            "M=D",
+            "@endFrame",
+            "AM=M-1",
+            "D=M",
+            "@LCL",
+            "M=D",
+            "@endFrame",
+            "AM=M-1",
+            "A=M",
+            "0;JMP"
         ]
         for line in c:
             print(line)

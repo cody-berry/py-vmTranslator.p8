@@ -113,37 +113,37 @@ Implementations:
 		VM part:
 			push 0 {nVars} times
 	return in asm:
-		@LCL
-		D=M
-		@endFrame
-		M=D
-		VM: pop arg 0
-		@ARG
-		D=M+1
-		@SP
-		M=D
-		@endFrame
-		AM=M-1
-		D=M
-		@THAT
-		M=D
-		@endFrame
-		AM=M-1
-		D=M
-		@THIS
-		M=D
-		@endFrame
-		AM=M-1
-		D=M
-		@ARG
-		M=D
-		@endFrame
-		AM=M-1
-		D=M
-		@LCL
-		M=D
-		@returnAddress
-		0;JMP
+		"@LCL"
+		"D=M"
+		"@endFrame"
+		"M=D"
+		"VM: pop arg 0"
+		"@ARG"
+		"D=M+1"
+		"@SP"
+		"M=D"
+		"@endFrame"
+		"AM=M-1"
+		"D=M"
+		"@THAT"
+		"M=D"
+		"@endFrame"
+		"AM=M-1"
+		"D=M"
+		"@THIS"
+		"M=D"
+		"@endFrame"
+		"AM=M-1"
+		"D=M"
+		"@ARG"
+		"M=D"
+		"@endFrame"
+		"AM=M-1"
+		"D=M"
+		"@LCL"
+		"M=D"
+		"@returnAddress"
+		"0;JMP"
 
 BasicLoop: tests if-goto and label 
 FibonacciSeries: tests label, goto, and if-goto

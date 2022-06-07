@@ -1,18 +1,11 @@
-// initialization code
-@256
-D=A
-@SP
-M=D
 // function SimpleFunction.test 2
- (SimpleFunction.test)
- @SP
- M=M+1
- A=M-1
- M=0
- @SP
- M=M+1
- A=M-1
- M=0
+(SimpleFunction.test)
+@SP
+AM=M+1
+M=0
+@SP
+AM=M+1
+M=0
 // push local 0
 @0
 D=A
@@ -40,7 +33,7 @@ D=M
 A=A-1
 D=D+M
 M=D
-// not
+// not 
 @SP
 A=M-1
 M=!M
@@ -71,50 +64,48 @@ D=M
 M=M+1
 A=M-1
 M=D
-// sub
+// sub 
 @SP
 AM=M-1
 D=M
 A=A-1
 D=M-D
 M=D
-// return
- @LCL
- D=M
- @endFrame
- M=D
- @SP
- AM=M-1
- D=M
- @ARG
- A=M
- M=D
- @ARG
- D=M+1
- @SP
- M=D
- @endFrame
- AM=M-1
- D=M
- @THAT
- M=D
- @endFrame
- AM=M-1
- D=M
- @THIS
- M=D
- @endFrame
- AM=M-1
- D=M
- @ARG
- M=D
- @endFrame
- AM=M-1
- D=M
- @LCL
- M=D
- @endFrame
- AM=M-1
- A=M
- 0;JMP
-//
+@LCL
+D=M
+@endFrame
+M=D
+@SP
+AM=M-1
+D=M
+@ARG
+A=M
+M=D
+@ARG
+D=M+1
+@SP
+M=D
+@endFrame
+AM=M-1
+D=M
+@THAT
+M=D
+@endFrame
+AM=M-1
+D=M
+@THIS
+M=D
+@endFrame
+AM=M-1
+D=M
+@ARG
+M=D
+@endFrame
+AM=M-1
+D=M
+@LCL
+M=D
+@endFrame
+AM=M-1
+A=M
+0;JMP

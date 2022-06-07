@@ -2,8 +2,8 @@ from CodeWriter import *
 from Parser import *
 
 
-parser = Parser('ProgramFlow/FibonacciSeries/FibonacciSeries.vm')
-code_writer = CodeWriter('ProgramFlow/FibonacciSeries/FibonacciSeries.asm')
+parser = Parser('FunctionCalls/SimpleFunction/SimpleFunction.vm')
+code_writer = CodeWriter('FunctionCalls/SimpleFunction/SimpleFunction.asm')
 
 
 while parser.hasMoreLines():
@@ -24,5 +24,11 @@ while parser.hasMoreLines():
             code_writer.writeLabel(parser.arg1())
         case Command.C_IF:
             code_writer.writeIf(parser.arg1())
+        case Command.C_GOTO:
+            code_writer.writeGoto(parser.arg1())
+        case Command.C_FUNCTION:
+            code_writer.writeFunction(parser.arg1(), parser.arg2())
+        case Command.C_RETURN:
+            code_writer.writeReturn()
         case _:
             print('not found')

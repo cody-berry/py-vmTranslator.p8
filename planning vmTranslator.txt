@@ -79,7 +79,7 @@ Main
 
 
 Questions:
-	Shocken referenced push LCL/ARG/THIS/THAT. How do you do that?
+	Shockin referenced push LCL/ARG/THIS/THAT. How do you do that?
 
 Implementations: 
 	label label:

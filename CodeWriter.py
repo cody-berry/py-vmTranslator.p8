@@ -1,8 +1,9 @@
 class CodeWriter:
     def __init__(self, file_name):
         self.file = open(file_name, 'w')
-        self.counter = -1
+        self.equality_counter = 0
         self.filename = file_name
+        self.return_address_counter = 0
 
     # write an arithmetic command like add or subtract
     def writeArithmetic(self, command):
@@ -125,7 +126,7 @@ class CodeWriter:
     # PROTECTED
     # write an equality command
     def _writeEqGtLt(self, operator):
-        self.counter += 1
+        self.equality_counter += 1
 
         jump_type = ""
         if operator == 0:  # lt
@@ -142,18 +143,18 @@ class CodeWriter:
             "D=M",
             "A=A-1",
             "D=M-D",
-            f"@TRUE{self.counter}",
+            f"@TRUE{self.equality_counter}",
             f"D;J{jump_type}",
             "@SP",
             "A=M-1",
             "M=0",
-            f"@STOP{self.counter}",
+            f"@STOP{self.equality_counter}",
             f"D;JMP",
-            f"(TRUE{self.counter})",
+            f"(TRUE{self.equality_counter})",
             "@SP",
             "A=M-1",
             "M=-1",
-            f"(STOP{self.counter})"
+            f"(STOP{self.equality_counter})"
         ]
 
         for line in c:
@@ -518,7 +519,7 @@ class CodeWriter:
             print(line)
             self.file.write(line + "\n")
 
-    # write function functionName numVars
+    # write return
     def writeReturn(self):
         c = [
             "@LCL",
@@ -559,6 +560,60 @@ class CodeWriter:
             "AM=M-1",
             "A=M",
             "0;JMP"
+        ]
+        for line in c:
+            print(line)
+            self.file.write(line + "\n")
+
+    # write call functionName numArgs
+    def writeCall(self, function_name, num_args):
+        self.return_address_counter += 1
+        c = [
+            f"// call {function_name} {num_args}",
+            f"@{max(1-num_args, 0)}",
+            "D=A",
+            "@SP",
+            "M=D+M",
+            f"@returnAddress{self.return_address_counter}",
+            "D=A",
+            "@SP",
+            "AM=M+1",
+            "M=D",
+            "@LCL",
+            "D=M",
+            "@SP",
+            "AM=M+1",
+            "M=D",
+            "@ARG",
+            "D=M",
+            "@SP",
+            "AM=M+1",
+            "M=D",
+            "@THIS",
+            "D=M",
+            "@SP",
+            "AM=M+1",
+            "M=D",
+            "@THAT",
+            "D=M",
+            "@SP",
+            "AM=M+1",
+            "M=D",
+            "@SP",
+            "D=M",
+            "@5",
+            "D=D-A",
+            f"@{max(num_args, 1)}",
+            "D=D-A",
+            "@ARG",
+            "M=D",
+            "@SP",
+            "D=M",
+            "@LCL",
+            "M=D",
+            f"@{function_name}",
+            "0;JMP",
+            f"(returnAddress{self.return_address_counter})"
         ]
         for line in c:
             print(line)

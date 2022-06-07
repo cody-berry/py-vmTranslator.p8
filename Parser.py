@@ -31,7 +31,7 @@ class Parser:
         self.lineNumber = -1
         self.lineContent = ' '
 
-    def hasMoreLines(self):
+    def hasMoreLines(self) -> bool:
         return self.lineNumber < len(self.file) - 1
 
     def advance(self):

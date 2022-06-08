@@ -509,6 +509,16 @@ class CodeWriter:
     def writeFunction(self, function_name, num_vars):
         c = [
             f"// function {function_name} {num_vars}",
+            "@5",
+            "D=A",
+            "@SP",
+            "MD=D+M",
+            "@LCL",
+            "M=D",
+            "@5",
+            "D=D-A",
+            "@ARG",
+            "M=D",
             f"({function_name})"
         ]
         for i in range(0, num_vars):
@@ -618,3 +628,16 @@ class CodeWriter:
         for line in c:
             print(line)
             self.file.write(line + "\n")
+
+    # write the bootstrap code that sets SP to 256
+    def writeInit(self):
+        c = [
+            "@256",
+            "D=A",
+            "@SP",
+            "M=D"
+        ]
+        for line in c:
+            print(line)
+            self.file.write(line + "\n")
+

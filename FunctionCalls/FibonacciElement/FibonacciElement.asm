@@ -1,72 +1,89 @@
-// initialization code  
 @256
 D=A
 @SP
 M=D
- (Sys.init)
- @5
- D=A
- @SP
- M=M+D
+// function Sys.init 0
+@5
+D=A
+@SP
+MD=D+M
+@LCL
+M=D
+@5
+D=D-A
+@ARG
+M=D
+(Sys.init)
+// push constant 4
 @4
 D=A
 @SP
 M=M+1
 A=M-1
 M=D
- // call
- @0
- D=A
- @SP
- M=D+M
- @returnAddress1
- D=A
- @SP
- A=M
- M=D
- @LCL
- D=M
- @SP
- AM=M+1
- M=D
- @ARG
- D=M
- @SP
- AM=M+1
- M=D
- @THIS
- D=M
- @SP
- AM=M+1
- M=D
- @THAT
- D=M
- @SP
- AM=M+1
- M=D
- @SP
- MD=M+1
- @5
- D=D-A
- @1
- D=D-A
- @ARG
- M=D
- @SP
- D=M
- @LCL
- M=D
- @Main.fibonacci
- 0;JMP
- (returnAddress1)
- (WHILE)
- @WHILE
- 0;JMP
- (Main.fibonacci)
- @5
- D=A
- @SP
- M=M+D
+// call Main.fibonacci 1
+@0
+D=A
+@SP
+M=D+M
+@returnAddress1
+D=A
+@SP
+AM=M+1
+M=D
+@LCL
+D=M
+@SP
+AM=M+1
+M=D
+@ARG
+D=M
+@SP
+AM=M+1
+M=D
+@THIS
+D=M
+@SP
+AM=M+1
+M=D
+@THAT
+D=M
+@SP
+AM=M+1
+M=D
+@SP
+D=M
+@5
+D=D-A
+@1
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Main.fibonacci
+0;JMP
+(returnAddress1)
+// label WHILE
+(WHILE)
+// goto WHILE
+@WHILE
+0;JMP
+// function Main.fibonacci 0
+@5
+D=A
+@SP
+MD=D+M
+@LCL
+M=D
+@5
+D=D-A
+@ARG
+M=D
+(Main.fibonacci)
+// push argument 0
 @0
 D=A
 @ARG
@@ -76,37 +93,75 @@ D=M
 M=M+1
 A=M-1
 M=D
+// push constant 2
 @2
 D=A
 @SP
 M=M+1
 A=M-1
+M=D
+// if-goto IF_TRUE
+@SP
+AM=M-1
+D=M
+@IF_TRUE
+D;JNE
+// goto IF_FALSE
+@IF_FALSE
+0;JMP
+// label IF_TRUE
+(IF_TRUE)
+// push argument 0
+@0
+D=A
+@ARG
+A=D+M
+D=M
+@SP
+M=M+1
+A=M-1
+M=D
+@LCL
+D=M
+@endFrame
 M=D
 @SP
 AM=M-1
 D=M
-A=A-1
-D=D-M
-@TRUE1
-D;JGT
+@ARG
+A=M
+M=D
+@ARG
+D=M+1
 @SP
-A=M-1
-M=0
-@STOP1
+M=D
+@endFrame
+AM=M-1
+D=M
+@THAT
+M=D
+@endFrame
+AM=M-1
+D=M
+@THIS
+M=D
+@endFrame
+AM=M-1
+D=M
+@ARG
+M=D
+@endFrame
+AM=M-1
+D=M
+@LCL
+M=D
+@endFrame
+AM=M-1
+A=M
 0;JMP
-(TRUE1)
-@SP
-A=M-1
-M=-1
-(STOP1)
- @SP
- AM=M-1
- D=M
- @IF_TRUE
- D;JNE
- @IF_FALSE
- 0;JMP
- (IF_TRUE)
+// label IF_FALSE
+(IF_FALSE)
+// push argument 0
 @0
 D=A
 @ARG
@@ -116,111 +171,66 @@ D=M
 M=M+1
 A=M-1
 M=D
- @LCL
- D=M
- @endFrame
- M=D
- @SP
- AM=M-1
- D=M
- @ARG
- A=M
- M=D
- @ARG
- D=M+1
- @SP
- M=D
- @endFrame
- AM=M-1
- D=M
- @THAT
- M=D
- @endFrame
- AM=M-1
- D=M
- @THIS
- M=D
- @endFrame
- AM=M-1
- D=M
- @ARG
- M=D
- @endFrame
- AM=M-1
- D=M
- @LCL
- M=D
- @endFrame
- AM=M-1
- A=M
- 0;JMP
- (IF_FALSE)
-@0
-D=A
-@ARG
-A=D+M
-D=M
-@SP
-M=M+1
-A=M-1
-M=D
+// push constant 2
 @2
 D=A
 @SP
 M=M+1
 A=M-1
 M=D
+// sub 
 @SP
 AM=M-1
 D=M
 A=A-1
 D=M-D
 M=D
- // call
- @0
- D=A
- @SP
- M=D+M
- @returnAddress2
- D=A
- @SP
- A=M
- M=D
- @LCL
- D=M
- @SP
- AM=M+1
- M=D
- @ARG
- D=M
- @SP
- AM=M+1
- M=D
- @THIS
- D=M
- @SP
- AM=M+1
- M=D
- @THAT
- D=M
- @SP
- AM=M+1
- M=D
- @SP
- MD=M+1
- @5
- D=D-A
- @1
- D=D-A
- @ARG
- M=D
- @SP
- D=M
- @LCL
- M=D
- @Main.fibonacci
- 0;JMP
- (returnAddress2)
+// call Main.fibonacci 1
+@0
+D=A
+@SP
+M=D+M
+@returnAddress2
+D=A
+@SP
+AM=M+1
+M=D
+@LCL
+D=M
+@SP
+AM=M+1
+M=D
+@ARG
+D=M
+@SP
+AM=M+1
+M=D
+@THIS
+D=M
+@SP
+AM=M+1
+M=D
+@THAT
+D=M
+@SP
+AM=M+1
+M=D
+@SP
+D=M
+@5
+D=D-A
+@1
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Main.fibonacci
+0;JMP
+(returnAddress2)
+// push argument 0
 @0
 D=A
 @ARG
@@ -230,104 +240,100 @@ D=M
 M=M+1
 A=M-1
 M=D
+// push constant 1
 @1
 D=A
 @SP
 M=M+1
 A=M-1
 M=D
+// sub 
 @SP
 AM=M-1
 D=M
 A=A-1
 D=M-D
 M=D
- // call
- @0
- D=A
- @SP
- M=D+M
- @returnAddress3
- D=A
- @SP
- A=M
- M=D
- @LCL
- D=M
- @SP
- AM=M+1
- M=D
- @ARG
- D=M
- @SP
- AM=M+1
- M=D
- @THIS
- D=M
- @SP
- AM=M+1
- M=D
- @THAT
- D=M
- @SP
- AM=M+1
- M=D
- @SP
- MD=M+1
- @5
- D=D-A
- @1
- D=D-A
- @ARG
- M=D
- @SP
- D=M
- @LCL
- M=D
- @Main.fibonacci
- 0;JMP
- (returnAddress3)
+// call Main.fibonacci 1
+@0
+D=A
+@SP
+M=D+M
+@returnAddress3
+D=A
+@SP
+AM=M+1
+M=D
+@LCL
+D=M
+@SP
+AM=M+1
+M=D
+@ARG
+D=M
+@SP
+AM=M+1
+M=D
+@THIS
+D=M
+@SP
+AM=M+1
+M=D
+@THAT
+D=M
+@SP
+AM=M+1
+M=D
+@SP
+D=M
+@5
+D=D-A
+@1
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Main.fibonacci
+0;JMP
+(returnAddress3)
+@LCL
+D=M
+@endFrame
+M=D
 @SP
 AM=M-1
 D=M
-A=A-1
-D=D+M
+@ARG
+A=M
 M=D
- @LCL
- D=M
- @endFrame
- M=D
- @SP
- AM=M-1
- D=M
- @ARG
- A=M
- M=D
- @ARG
- D=M+1
- @SP
- M=D
- @endFrame
- AM=M-1
- D=M
- @THAT
- M=D
- @endFrame
- AM=M-1
- D=M
- @THIS
- M=D
- @endFrame
- AM=M-1
- D=M
- @ARG
- M=D
- @endFrame
- AM=M-1
- D=M
- @LCL
- M=D
- @endFrame
- AM=M-1
- A=M
- 0;JMP
+@ARG
+D=M+1
+@SP
+M=D
+@endFrame
+AM=M-1
+D=M
+@THAT
+M=D
+@endFrame
+AM=M-1
+D=M
+@THIS
+M=D
+@endFrame
+AM=M-1
+D=M
+@ARG
+M=D
+@endFrame
+AM=M-1
+D=M
+@LCL
+M=D
+@endFrame
+AM=M-1
+A=M
+0;JMP

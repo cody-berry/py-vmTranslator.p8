@@ -2,13 +2,15 @@ from CodeWriter import *
 from Parser import *
 
 
-parser = Parser('FunctionCalls/SimpleFunction/SimpleFunction.vm')
-code_writer = CodeWriter('FunctionCalls/SimpleFunction/SimpleFunction.asm')
+parser = Parser('FunctionCalls/FibonacciElement')
+code_writer = CodeWriter('FunctionCalls/FibonacciElement/FibonacciElement.asm')
+
+code_writer.writeInit()
 
 
 while parser.hasMoreLines():
 
-    print("_______________________ₓ_________________ₓ__________ₓ____________ₑ____________")
+    print("_______________ₓₑ_______ₓ_________________ₓ__________ₓ____________ₑ____________")
 
     parser.advance()
     print(parser.lineContent)
@@ -30,5 +32,7 @@ while parser.hasMoreLines():
             code_writer.writeFunction(parser.arg1(), parser.arg2())
         case Command.C_RETURN:
             code_writer.writeReturn()
+        case Command.C_CALL:
+            code_writer.writeCall(parser.arg1(), parser.arg2())
         case _:
             print('not found')

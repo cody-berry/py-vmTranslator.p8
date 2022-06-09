@@ -55,6 +55,7 @@ class Parser:
     def commandType(self) -> Command:
         command = self.lineContent.split(' ')
 
+
         print(command)
 
         if command[0] in ['add', 'sub', 'neg', 'or', 'and', 'not', 'lt', 'eq', 'gt']:

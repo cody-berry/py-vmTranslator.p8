@@ -2,8 +2,8 @@ from CodeWriter import *
 from Parser import *
 
 
-parser = Parser('FunctionCalls/FibonacciElement')
-code_writer = CodeWriter('FunctionCalls/FibonacciElement/FibonacciElement.asm')
+parser = Parser('FunctionCalls/NestedCall/Sys.vm')
+code_writer = CodeWriter('FunctionCalls/NestedCall/NestedCall.asm')
 
 code_writer.writeInit()
 

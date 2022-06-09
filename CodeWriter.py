@@ -523,7 +523,8 @@ class CodeWriter:
         ]
         for i in range(0, num_vars):
             c.append('@SP')
-            c.append('AM=M+1')
+            c.append('M=M+1')
+            c.append('A=M-1')
             c.append('M=0')
         for line in c:
             print(line)
@@ -587,7 +588,7 @@ class CodeWriter:
             f"@returnAddress{self.return_address_counter}",
             "D=A",
             "@SP",
-            "AM=M+1",
+            "A=M",
             "M=D",
             "@LCL",
             "D=M",
@@ -610,7 +611,7 @@ class CodeWriter:
             "AM=M+1",
             "M=D",
             "@SP",
-            "D=M",
+            "MD=M+1",
             "@5",
             "D=D-A",
             f"@{max(num_args, 1)}",

@@ -29,7 +29,7 @@ M=D+M
 @returnAddress1
 D=A
 @SP
-AM=M+1
+A=M
 M=D
 @LCL
 D=M
@@ -52,7 +52,7 @@ D=M
 AM=M+1
 M=D
 @SP
-D=M
+MD=M+1
 @5
 D=D-A
 @1
@@ -100,6 +100,24 @@ D=A
 M=M+1
 A=M-1
 M=D
+// lt
+@SP
+AM=M-1
+D=M
+A=A-1
+D=M-D
+@TRUE1
+D;JLT
+@SP
+A=M-1
+M=0
+@STOP1
+D;JMP
+(TRUE1)
+@SP
+A=M-1
+M=-1
+(STOP1)
 // if-goto IF_TRUE
 @SP
 AM=M-1
@@ -193,7 +211,7 @@ M=D+M
 @returnAddress2
 D=A
 @SP
-AM=M+1
+A=M
 M=D
 @LCL
 D=M
@@ -216,7 +234,7 @@ D=M
 AM=M+1
 M=D
 @SP
-D=M
+MD=M+1
 @5
 D=D-A
 @1
@@ -262,7 +280,7 @@ M=D+M
 @returnAddress3
 D=A
 @SP
-AM=M+1
+A=M
 M=D
 @LCL
 D=M
@@ -285,7 +303,7 @@ D=M
 AM=M+1
 M=D
 @SP
-D=M
+MD=M+1
 @5
 D=D-A
 @1
@@ -299,6 +317,13 @@ M=D
 @Main.fibonacci
 0;JMP
 (returnAddress3)
+// add
+@SP
+AM=M-1
+D=M
+A=A-1
+D=D+M
+M=D
 @LCL
 D=M
 @endFrame

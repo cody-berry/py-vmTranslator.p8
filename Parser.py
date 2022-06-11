@@ -34,14 +34,17 @@ class Parser:
         self.file = []
 
         for file in files:
+            self.file.append("// Remember to change the filename to " + file.name[(file.name.rfind("\\") + 1):-3] + "!")
             for line in file:
                 c = line
 
                 if len(c) > 2 and c[0] != ' ' and c[0] != '/':
                     self.file.append(c)
 
-            self.lineNumber = -1
-            self.lineContent = ' '
+        self.lineNumber = -1
+        self.lineContent = ' '
+
+        self.filename = 'Sys'
 
     def hasMoreLines(self) -> bool:
         return self.lineNumber < len(self.file) - 1
@@ -52,9 +55,8 @@ class Parser:
         self.lineContent = self.file[self.lineNumber].strip()
         print(self.lineContent)
 
-    def commandType(self) -> Command:
+    def commandType(self):
         command = self.lineContent.split(' ')
-
 
         print(command)
 
@@ -77,10 +79,16 @@ class Parser:
         if command[0] == 'call':
             return Command.C_CALL
 
+        # there's an edge case where it says something like:
+        # "// Remember to change the filename to Sys!"
+        # In those cases, we return 0.
+        if command[0] == '//':
+            return 0
+
     def arg1(self) -> str:
         command = self.lineContent.split(' ')
-        if len(command) == 1:
-            return self.lineContent
+        if self.commandType() == Command.C_ARITHMETIC:
+            return command[0]
         else:
             return command[1]
 

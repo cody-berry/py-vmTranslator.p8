@@ -1,235 +1,257 @@
-// initialization code
 @256
 D=A
 @SP
 M=D
- (Sys.init)
- @5
- D=A
- @SP
- M=M+D
+// function Sys.init 0
+@5
+D=A
+@SP
+MD=D+M
+@LCL
+M=D
+@5
+D=D-A
+@ARG
+M=D
+(Sys.init)
+// push constant 6
 @6
 D=A
 @SP
 M=M+1
 A=M-1
 M=D
+// push constant 8
 @8
 D=A
 @SP
 M=M+1
 A=M-1
 M=D
- // call
- @0
- D=A
- @SP
- M=D+M
- @returnAddress1
- D=A
- @SP
- A=M
- M=D
- @LCL
- D=M
- @SP
- AM=M+1
- M=D
- @ARG
- D=M
- @SP
- AM=M+1
- M=D
- @THIS
- D=M
- @SP
- AM=M+1
- M=D
- @THAT
- D=M
- @SP
- AM=M+1
- M=D
- @SP
- MD=M+1
- @5
- D=D-A
- @2
- D=D-A
- @ARG
- M=D
- @SP
- D=M
- @LCL
- M=D
- @Class1.set
- 0;JMP
- (returnAddress1)
+// call Class1.set 2
+@0
+D=A
+@SP
+M=D+M
+@returnAddress1
+D=A
+@SP
+A=M
+M=D
+@LCL
+D=M
+@SP
+AM=M+1
+M=D
+@ARG
+D=M
+@SP
+AM=M+1
+M=D
+@THIS
+D=M
+@SP
+AM=M+1
+M=D
+@THAT
+D=M
+@SP
+AM=M+1
+M=D
+@SP
+MD=M+1
+@5
+D=D-A
+@2
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Class1.set
+0;JMP
+(returnAddress1)
+// pop temp 0
 @SP
 AM=M-1
 D=M
 @5
 M=D
+// push constant 23
 @23
 D=A
 @SP
 M=M+1
 A=M-1
 M=D
+// push constant 15
 @15
 D=A
 @SP
 M=M+1
 A=M-1
 M=D
- // call
- @0
- D=A
- @SP
- M=D+M
- @returnAddress2
- D=A
- @SP
- A=M
- M=D
- @LCL
- D=M
- @SP
- AM=M+1
- M=D
- @ARG
- D=M
- @SP
- AM=M+1
- M=D
- @THIS
- D=M
- @SP
- AM=M+1
- M=D
- @THAT
- D=M
- @SP
- AM=M+1
- M=D
- @SP
- MD=M+1
- @5
- D=D-A
- @2
- D=D-A
- @ARG
- M=D
- @SP
- D=M
- @LCL
- M=D
- @Class2.set
- 0;JMP
- (returnAddress2)
+// call Class2.set 2
+@0
+D=A
+@SP
+M=D+M
+@returnAddress2
+D=A
+@SP
+A=M
+M=D
+@LCL
+D=M
+@SP
+AM=M+1
+M=D
+@ARG
+D=M
+@SP
+AM=M+1
+M=D
+@THIS
+D=M
+@SP
+AM=M+1
+M=D
+@THAT
+D=M
+@SP
+AM=M+1
+M=D
+@SP
+MD=M+1
+@5
+D=D-A
+@2
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Class2.set
+0;JMP
+(returnAddress2)
+// pop temp 0
 @SP
 AM=M-1
 D=M
 @5
 M=D
- // call
- @1
- D=A
- @SP
- M=D+M
- @returnAddress3
- D=A
- @SP
- A=M
- M=D
- @LCL
- D=M
- @SP
- AM=M+1
- M=D
- @ARG
- D=M
- @SP
- AM=M+1
- M=D
- @THIS
- D=M
- @SP
- AM=M+1
- M=D
- @THAT
- D=M
- @SP
- AM=M+1
- M=D
- @SP
- MD=M+1
- @5
- D=D-A
- @1
- D=D-A
- @ARG
- M=D
- @SP
- D=M
- @LCL
- M=D
- @Class1.get
- 0;JMP
- (returnAddress3)
- // call
- @1
- D=A
- @SP
- M=D+M
- @returnAddress4
- D=A
- @SP
- A=M
- M=D
- @LCL
- D=M
- @SP
- AM=M+1
- M=D
- @ARG
- D=M
- @SP
- AM=M+1
- M=D
- @THIS
- D=M
- @SP
- AM=M+1
- M=D
- @THAT
- D=M
- @SP
- AM=M+1
- M=D
- @SP
- MD=M+1
- @5
- D=D-A
- @1
- D=D-A
- @ARG
- M=D
- @SP
- D=M
- @LCL
- M=D
- @Class2.get
- 0;JMP
- (returnAddress4)
- (WHILE)
- @WHILE
- 0;JMP
- (Class1.set)
- @5
- D=A
- @SP
- M=M+D
+// call Class1.get 0
+@1
+D=A
+@SP
+M=D+M
+@returnAddress3
+D=A
+@SP
+A=M
+M=D
+@LCL
+D=M
+@SP
+AM=M+1
+M=D
+@ARG
+D=M
+@SP
+AM=M+1
+M=D
+@THIS
+D=M
+@SP
+AM=M+1
+M=D
+@THAT
+D=M
+@SP
+AM=M+1
+M=D
+@SP
+MD=M+1
+@5
+D=D-A
+@1
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Class1.get
+0;JMP
+(returnAddress3)
+// call Class2.get 0
+@1
+D=A
+@SP
+M=D+M
+@returnAddress4
+D=A
+@SP
+A=M
+M=D
+@LCL
+D=M
+@SP
+AM=M+1
+M=D
+@ARG
+D=M
+@SP
+AM=M+1
+M=D
+@THIS
+D=M
+@SP
+AM=M+1
+M=D
+@THAT
+D=M
+@SP
+AM=M+1
+M=D
+@SP
+MD=M+1
+@5
+D=D-A
+@1
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
+@Class2.get
+0;JMP
+(returnAddress4)
+// label WHILE
+(WHILE)
+// goto WHILE
+@WHILE
+0;JMP
+// function Class1.set 0
+@5
+D=A
+@SP
+MD=D+M
+@LCL
+M=D
+@5
+D=D-A
+@ARG
+M=D
+(Class1.set)
+// push argument 0
 @0
 D=A
 @ARG
@@ -239,11 +261,13 @@ D=M
 M=M+1
 A=M-1
 M=D
+// pop static 0
 @SP
 AM=M-1
 D=M
-@0Class1.vm
+@Class1.0
 M=D
+// push argument 1
 @1
 D=A
 @ARG
@@ -253,121 +277,141 @@ D=M
 M=M+1
 A=M-1
 M=D
+// pop static 1
 @SP
 AM=M-1
 D=M
-@1Class1.vm
+@Class1.1
 M=D
+// push constant 0
 @0
 D=A
 @SP
 M=M+1
 A=M-1
 M=D
- @LCL
- D=M
- @endFrame
- M=D
- @SP
- AM=M-1
- D=M
- @ARG
- A=M
- M=D
- @ARG
- D=M+1
- @SP
- M=D
- @endFrame
- AM=M-1
- D=M
- @THAT
- M=D
- @endFrame
- AM=M-1
- D=M
- @THIS
- M=D
- @endFrame
- AM=M-1
- D=M
- @ARG
- M=D
- @endFrame
- AM=M-1
- D=M
- @LCL
- M=D
- @endFrame
- AM=M-1
- A=M
- 0;JMP
- (Class1.get)
- @5
- D=A
- @SP
- M=M+D
-@0Class1.vm
+@LCL
+D=M
+@endFrame
+M=D
+@SP
+AM=M-1
+D=M
+@ARG
+A=M
+M=D
+@ARG
+D=M+1
+@SP
+M=D
+@endFrame
+AM=M-1
+D=M
+@THAT
+M=D
+@endFrame
+AM=M-1
+D=M
+@THIS
+M=D
+@endFrame
+AM=M-1
+D=M
+@ARG
+M=D
+@endFrame
+AM=M-1
+D=M
+@LCL
+M=D
+@endFrame
+AM=M-1
+A=M
+0;JMP
+// function Class1.get 0
+@5
+D=A
+@SP
+MD=D+M
+@LCL
+M=D
+@5
+D=D-A
+@ARG
+M=D
+(Class1.get)
+// push static 0
+@Class1.0
 D=M
 @SP
 M=M+1
 A=M-1
 M=D
-@1Class1.vm
+// push static 1
+@Class1.1
 D=M
 @SP
 M=M+1
 A=M-1
 M=D
+// sub 
 @SP
 AM=M-1
 D=M
 A=A-1
 D=M-D
 M=D
- @LCL
- D=M
- @endFrame
- M=D
- @SP
- AM=M-1
- D=M
- @ARG
- A=M
- M=D
- @ARG
- D=M+1
- @SP
- M=D
- @endFrame
- AM=M-1
- D=M
- @THAT
- M=D
- @endFrame
- AM=M-1
- D=M
- @THIS
- M=D
- @endFrame
- AM=M-1
- D=M
- @ARG
- M=D
- @endFrame
- AM=M-1
- D=M
- @LCL
- M=D
- @endFrame
- AM=M-1
- A=M
- 0;JMP
- (Class2.set)
- @5
- D=A
- @SP
- M=M+D
+@LCL
+D=M
+@endFrame
+M=D
+@SP
+AM=M-1
+D=M
+@ARG
+A=M
+M=D
+@ARG
+D=M+1
+@SP
+M=D
+@endFrame
+AM=M-1
+D=M
+@THAT
+M=D
+@endFrame
+AM=M-1
+D=M
+@THIS
+M=D
+@endFrame
+AM=M-1
+D=M
+@ARG
+M=D
+@endFrame
+AM=M-1
+D=M
+@LCL
+M=D
+@endFrame
+AM=M-1
+A=M
+0;JMP
+// function Class2.set 0
+@5
+D=A
+@SP
+MD=D+M
+@LCL
+M=D
+@5
+D=D-A
+@ARG
+M=D
+(Class2.set)
+// push argument 0
 @0
 D=A
 @ARG
@@ -377,11 +421,13 @@ D=M
 M=M+1
 A=M-1
 M=D
+// pop static 0
 @SP
 AM=M-1
 D=M
-@0Class2.vm
+@Class2.0
 M=D
+// push argument 1
 @1
 D=A
 @ARG
@@ -391,113 +437,125 @@ D=M
 M=M+1
 A=M-1
 M=D
+// pop static 1
 @SP
 AM=M-1
 D=M
-@1Class2.vm
+@Class2.1
 M=D
+// push constant 0
 @0
 D=A
 @SP
 M=M+1
 A=M-1
 M=D
- @LCL
- D=M
- @endFrame
- M=D
- @SP
- AM=M-1
- D=M
- @ARG
- A=M
- M=D
- @ARG
- D=M+1
- @SP
- M=D
- @endFrame
- AM=M-1
- D=M
- @THAT
- M=D
- @endFrame
- AM=M-1
- D=M
- @THIS
- M=D
- @endFrame
- AM=M-1
- D=M
- @ARG
- M=D
- @endFrame
- AM=M-1
- D=M
- @LCL
- M=D
- @endFrame
- AM=M-1
- A=M
- 0;JMP
- (Class2.get)
- @5
- D=A
- @SP
- M=M+D
-@0Class2.vm
+@LCL
+D=M
+@endFrame
+M=D
+@SP
+AM=M-1
+D=M
+@ARG
+A=M
+M=D
+@ARG
+D=M+1
+@SP
+M=D
+@endFrame
+AM=M-1
+D=M
+@THAT
+M=D
+@endFrame
+AM=M-1
+D=M
+@THIS
+M=D
+@endFrame
+AM=M-1
+D=M
+@ARG
+M=D
+@endFrame
+AM=M-1
+D=M
+@LCL
+M=D
+@endFrame
+AM=M-1
+A=M
+0;JMP
+// function Class2.get 0
+@5
+D=A
+@SP
+MD=D+M
+@LCL
+M=D
+@5
+D=D-A
+@ARG
+M=D
+(Class2.get)
+// push static 0
+@Class2.0
 D=M
 @SP
 M=M+1
 A=M-1
 M=D
-@1Class2.vm
+// push static 1
+@Class2.1
 D=M
 @SP
 M=M+1
 A=M-1
 M=D
+// sub 
 @SP
 AM=M-1
 D=M
 A=A-1
 D=M-D
 M=D
- @LCL
- D=M
- @endFrame
- M=D
- @SP
- AM=M-1
- D=M
- @ARG
- A=M
- M=D
- @ARG
- D=M+1
- @SP
- M=D
- @endFrame
- AM=M-1
- D=M
- @THAT
- M=D
- @endFrame
- AM=M-1
- D=M
- @THIS
- M=D
- @endFrame
- AM=M-1
- D=M
- @ARG
- M=D
- @endFrame
- AM=M-1
- D=M
- @LCL
- M=D
- @endFrame
- AM=M-1
- A=M
- 0;JMP
+@LCL
+D=M
+@endFrame
+M=D
+@SP
+AM=M-1
+D=M
+@ARG
+A=M
+M=D
+@ARG
+D=M+1
+@SP
+M=D
+@endFrame
+AM=M-1
+D=M
+@THAT
+M=D
+@endFrame
+AM=M-1
+D=M
+@THIS
+M=D
+@endFrame
+AM=M-1
+D=M
+@ARG
+M=D
+@endFrame
+AM=M-1
+D=M
+@LCL
+M=D
+@endFrame
+AM=M-1
+A=M
+0;JMP

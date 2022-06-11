@@ -642,3 +642,7 @@ class CodeWriter:
             print(line)
             self.file.write(line + "\n")
 
+    # changes the filename
+    def changeFile(self, filename):
+        self.filename = filename
+

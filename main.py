@@ -2,8 +2,9 @@ from CodeWriter import *
 from Parser import *
 
 
-parser = Parser('FunctionCalls/NestedCall/Sys.vm')
-code_writer = CodeWriter('FunctionCalls/NestedCall/NestedCall.asm')
+parser = Parser('FunctionCalls/StaticsTest')
+code_writer = CodeWriter('FunctionCalls/StaticsTest/StaticsTest.asm')
+
 
 code_writer.writeInit()
 
@@ -34,5 +35,8 @@ while parser.hasMoreLines():
             code_writer.writeReturn()
         case Command.C_CALL:
             code_writer.writeCall(parser.arg1(), parser.arg2())
+        case 0:
+            code_writer.changeFile(parser.lineContent[38:-1])
+            print(code_writer.filename)
         case _:
             print('not found')

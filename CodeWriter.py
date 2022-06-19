@@ -509,16 +509,18 @@ class CodeWriter:
     def writeFunction(self, function_name, num_vars):
         c = [
             f"// function {function_name} {num_vars}",
-            "@5",
-            "D=A",
-            "@SP",
-            "MD=D+M",
+            "@5",           # in case we're calling this function by hand, we
+            "D=A",          # increment SP by 5 and set that to LCL and that
+            "@SP",          # minus 5 to ARG.
+            "MD=D+M",       # This command adds D (5) to M while also storing it in D.
+
             "@LCL",
-            "M=D",
+            "M=D",          # Set LCL to D, which is SP.
+
             "@5",
             "D=D-A",
             "@ARG",
-            "M=D",
+            "M=D",          # ARG=SP-5.
             f"({function_name})"
         ]
         for i in range(0, num_vars):
@@ -532,46 +534,70 @@ class CodeWriter:
 
     # write return
     def writeReturn(self):
+        # in order, the list of segments we want to return
+        segments_to_restore = ['THIS', 'THAT', 'ARG', 'LCL']
+
         c = [
             "@LCL",
             "D=M",
             "@endFrame",
-            "M=D",
+            "M=D",           # endFrame = LCL
+
             "@SP",
             "AM=M-1",
-            "D=M",
+            "D=M",           # SP--, D=RAM[SP]
             "@ARG",
             "A=M",
-            "M=D",
+            "M=D",           # ARG=D
+                             # total: pop arg 0
+
             "@ARG",
             "D=M+1",
             "@SP",
-            "M=D",
-            "@endFrame",
-            "AM=M-1",
-            "D=M",
-            "@THAT",
-            "M=D",
-            "@endFrame",
-            "AM=M-1",
-            "D=M",
-            "@THIS",
-            "M=D",
-            "@endFrame",
-            "AM=M-1",
-            "D=M",
-            "@ARG",
-            "M=D",
+            "M=D",           # SP=ARG+1
+                             # From the start, we have set a variable called
+                             # endFrame to LCL and turned the arguments that we
+                             # inputted from call into the return value.
+            #
+            # "@endFrame",     # We're beginning to jump to the return address an
+            # "AM=M-1",        # restore THAT, THIS, ARG, and LCL.
+            # "D=M",
+            # "@THAT",
+            # "M=D",           # endFrame--, THAT=RAM[endFrame]
+            #
+            # "@endFrame",
+            # "AM=M-1",
+            # "D=M",
+            # "@THIS",
+            # "M=D",           # endFrame--, THIS=RAM[endFrame]. Repeat for LCL
+            #                  # and ARG.
+            #
+            # "@endFrame",
+            # "AM=M-1",
+            # "D=M",
+            # "@ARG",
+            # "M=D",
+            ]
+        for segment in segments_to_restore:
+            c.extend(['@endFrame',
+                      'AM=M-1',
+                      'D=M',
+                      '@' + segment,
+                      'M=D'   # endFrame--, sets whatever segment to RAM[endFrame]
+                      ])
+
+        c.extend([
             "@endFrame",
             "AM=M-1",
             "D=M",
             "@LCL",
             "M=D",
+
             "@endFrame",
             "AM=M-1",
             "A=M",
-            "0;JMP"
-        ]
+            "0;JMP"          # endFrame--, goto RAM[endFrame].
+        ])
         for line in c:
             print(line)
             self.file.write(line + "\n")

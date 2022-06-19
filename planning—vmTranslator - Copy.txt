@@ -1,0 +1,154 @@
+Proposed design ———— VM Translator
+
+Parser
+	Reads a VM command, parses command into components
+	Ignores all whitespace and comments
+
+	Module 8: You should be able to open a directory and open multiple files of a .vm extension.
+
+	If it is a single file:
+		Constructor(input file): Opens input file and readies parsing
+			this.file
+			this.lineNumber
+			this.currentLine
+	If it is a directory, load all the files
+		
+	hasMoreCommands: Boolean (Are there more commands to be parsed)
+	advance: Reads next command and makes it current command. Only called if hasMoreCommands() === true.
+		increment lineNumber
+		make currentLine current line, deal with whitespace and comments
+		if push/pop at beginning:
+			get instances of whitespace in the middle, seperate and return
+		if arithmetic command:
+			return command
+
+CodeWriter
+	Constructor(output file): Opens output file and readies writing
+	writeArithmetic(command): Writes assembly code implementing arithmetic command.
+		if command === 'add', 'sub', 'lt', 'gt', 'and', 'or', 'eq':
+			do operation on last two stack points using SP, use command
+				lt/gt/eq
+					@FALSE
+					RAM[RAM[SP]] - RAM[Ram[SP-1]]; J(capital of lt/gt/eq)
+					make value of stack true
+					goto STOP
+					(FALSE)
+					make value of stack false
+					(STOP)
+				and/or
+					use truth table to figure out
+			decrement SP
+		if command === 'not':
+			invert value using truth table
+
+	writePushPop(push/pop, segment, index): Writes assembly code implementing push/pop command
+		if push:
+			if segment = "constant":
+				D = index
+			if segment = "local/argument/this/that":
+				D = *(LCL/ARG/THIS/THAT + index)
+			if segment = "pointer":
+				D = THIS/THAT (pointer: 0/1), 3 + i
+			if segment = "temp":
+				D = RAM[5 + index]
+			write pseudocode in assembly: *SP = D
+			SP++
+		if pop:
+			SP--
+			if segment = "local/argument/this/that":
+				location = LCL/ARG/THIS/THAT + index
+			if segment = "temp":
+				location = 5 + index
+			if segment = "pointer":
+				location = 3 + index
+			write pseudocode in assembly: RAM[location] = *SP
+	setFileName(string): Informs the codeWriter to translate a new VM file.
+	writeInit(): writes the code that sets SP to 256
+	writeLabel(label): writes label command
+	writeGoto(label): writes goto command
+	writeIf(label): writes if-goto command
+	writeFunction(functionName, numVars): writes function command
+	writeCall(functionName, numArgs): writes call command
+	writeReturn(): writes return command
+
+			
+
+Main
+	Parse the input file with Parser
+	Write the assembly code with CodeWriter
+
+
+Questions:
+	Shocken referenced push LCL/ARG/THIS/THAT. How do you do that?
+
+Implementations: 
+	label label:
+		(label)
+	goto label:
+		@label, 0;JMP
+	if-goto label:
+		pop, @label, 0;JNE
+	call in asm:
+		push LCL location
+		push ARG location
+		push THIS location
+		push THAT location
+		@SP
+		D=M
+		@4
+		D=D-A
+		@{nArgs}
+		D=D-A
+		@ARG
+		M=D
+		@SP
+		D=M
+		@LCL
+		M=D
+		@{functionName}
+		0;JMP
+		(returnAddress)
+	function in asm:
+		(functionName)
+		VM part:
+			push 0 {nVars} times
+	return in asm:
+		@LCL
+		D=M
+		@endFrame
+		M=D
+		VM: pop arg 0
+		@ARG
+		D=M+1
+		@SP
+		M=D
+		@endFrame
+		AM=M-1
+		D=M
+		@THAT
+		M=D
+		@endFrame
+		AM=M-1
+		D=M
+		@THIS
+		M=D
+		@endFrame
+		AM=M-1
+		D=M
+		@ARG
+		M=D
+		@endFrame
+		AM=M-1
+		D=M
+		@LCL
+		M=D
+		@returnAddress
+		0;JMP
+
+BasicLoop: tests if-goto and label 
+FibonacciSeries: tests label, goto, and if-goto
+SimpleFunction: test function and return
+NestedCall: If SimpleFunction succeeds but FibonacciElement fails or crashes, you should do this one. Even if FibonacciElement succeeds, you should test this one.
+FibonacciElement: tests ability to translate multiple VM files, tests function, return, call
+StaticsTest: tests ability to translate multiple VM files, tests ability to call 2 different functions in different files while maintaining the correct static segment
+

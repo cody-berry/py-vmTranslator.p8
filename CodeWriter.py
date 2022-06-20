@@ -577,6 +577,12 @@ class CodeWriter:
             # "D=M",
             # "@ARG",
             # "M=D",
+
+            # "@endFrame",
+            # "AM=M-1",
+            # "D=M",
+            # "@LCL",
+            # "M=D",
             ]
         for segment in segments_to_restore:
             c.extend(['@endFrame',
@@ -587,11 +593,6 @@ class CodeWriter:
                       ])
 
         c.extend([
-            "@endFrame",
-            "AM=M-1",
-            "D=M",
-            "@LCL",
-            "M=D",
 
             "@endFrame",
             "AM=M-1",
@@ -605,53 +606,76 @@ class CodeWriter:
     # write call functionName numArgs
     def writeCall(self, function_name, num_args):
         self.return_address_counter += 1
+        # in order, the segments we want to push onto the stack
+        segments_to_push = ['LCL', 'ARG', 'THIS', 'THAT']
+
         c = [
             f"// call {function_name} {num_args}",
             f"@{max(1-num_args, 0)}",
-            "D=A",
-            "@SP",
-            "M=D+M",
+            "D=A",                          # in a weird way, sets D to 1 if
+            "@SP",                          # num_args is 0, and otherwise sets
+            "M=D+M",                        # D to 0.
             f"@returnAddress{self.return_address_counter}",
             "D=A",
             "@SP",
             "A=M",
-            "M=D",
-            "@LCL",
-            "D=M",
+            "M=D"                           # in SP's current position, push the
+            # "@LCL",                       # return address onto the stack
+            # "D=M",
+            # "@SP",
+            # "AM=M+1",
+            # "M=D",                        # push LCL onto the stack
+            # "@ARG",
+            # "D=M",
+            # "@SP",
+            # "AM=M+1",
+            # "M=D",                        # push ARG onto the stack
+            # "@THIS",
+            # "D=M",
+            # "@SP",
+            # "AM=M+1",
+            # "M=D",                        # push THIS onto the stack
+            # "@THAT",
+            # "D=M",
+            # "@SP",
+            # "AM=M+1",
+            # "M=D",                        # push THAT onto the stack
+            ]
+
+        for segment in segments_to_push:
+            c.extend([
+                "@" + segment,
+                "D=M",                       # sets D to the location of segment
+                "@SP",
+                "AM=M+1",
+                "M=D"                        # SP++, RAM[SP]=D
+            ])
+
+        c.extend([
             "@SP",
-            "AM=M+1",
-            "M=D",
-            "@ARG",
-            "D=M",
-            "@SP",
-            "AM=M+1",
-            "M=D",
-            "@THIS",
-            "D=M",
-            "@SP",
-            "AM=M+1",
-            "M=D",
-            "@THAT",
-            "D=M",
-            "@SP",
-            "AM=M+1",
-            "M=D",
-            "@SP",
-            "MD=M+1",
+            "MD=M+1",                # SP++ to accommodate that the fact that
+                                     # SP is in the position of the saved THAT,
+                                     # set D to SP
+
             "@5",
-            "D=D-A",
+            "D=D-A",                 # D -= 5
+
             f"@{max(num_args, 1)}",
-            "D=D-A",
+            "D=D-A",                 # D -= 1 if num_args is 0, otherwise
+                                     # D -= num_args
+
             "@ARG",
-            "M=D",
+            "M=D",                   # ARG=D
+
             "@SP",
             "D=M",
             "@LCL",
-            "M=D",
+            "M=D",                   # LCL=SP
+
             f"@{function_name}",
-            "0;JMP",
-            f"(returnAddress{self.return_address_counter})"
-        ]
+            "0;JMP",                 # goto function_name
+            f"(returnAddress{self.return_address_counter})"  # here is our return address
+        ])
         for line in c:
             print(line)
             self.file.write(line + "\n")

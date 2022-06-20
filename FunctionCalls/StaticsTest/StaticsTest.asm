@@ -326,11 +326,6 @@ D=M
 M=D
 @endFrame
 AM=M-1
-D=M
-@LCL
-M=D
-@endFrame
-AM=M-1
 A=M
 0;JMP
 // function Class1.get 0
@@ -394,11 +389,6 @@ M=D
 AM=M-1
 D=M
 @ARG
-M=D
-@endFrame
-AM=M-1
-D=M
-@LCL
 M=D
 @endFrame
 AM=M-1
@@ -496,11 +486,6 @@ D=M
 M=D
 @endFrame
 AM=M-1
-D=M
-@LCL
-M=D
-@endFrame
-AM=M-1
 A=M
 0;JMP
 // function Class2.get 0
@@ -564,11 +549,6 @@ M=D
 AM=M-1
 D=M
 @ARG
-M=D
-@endFrame
-AM=M-1
-D=M
-@LCL
 M=D
 @endFrame
 AM=M-1

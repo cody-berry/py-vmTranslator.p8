@@ -2,8 +2,8 @@ from CodeWriter import *
 from Parser import *
 
 
-parser = Parser('FunctionCalls/StaticsTest')
-code_writer = CodeWriter('FunctionCalls/StaticsTest/StaticsTest.asm')
+parser = Parser('FunctionCalls/FibonacciElement')
+code_writer = CodeWriter('FunctionCalls/FibonacciElement/FibonacciElement.asm')
 
 
 code_writer.writeInit()
